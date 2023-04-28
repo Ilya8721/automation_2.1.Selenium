@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.support.Color;
 
 public class DebitCardApplicationTest {
     WebDriver driver;
@@ -137,14 +138,15 @@ public class DebitCardApplicationTest {
     }
 
 
-//    @Test
-//    void unmarkedCheckbox() {
-//        driver.get("http://localhost:9999/");
-//        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Вася Пупкин-Пупкин");
-//        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79269999999");
-//        driver.findElement(By.tagName("button")).click();
-//        String expected = "#ff5c5c";
-//        String actual = driver.findElement(By.className("checkbox__text")).getCssValue("color");
-//        assertEquals(expected, actual);
-//    }
+    @Test
+    void unmarkedCheckbox() {
+        driver.get("http://localhost:9999/");
+        driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Вася Пупкин-Пупкин");
+        driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79269999999");
+        driver.findElement(By.tagName("button")).click();
+        String expected = "#ff5c5c";
+        String colorRGB = driver.findElement(By.className("checkbox__text")).getCssValue("color");
+        String actual = Color.fromString(colorRGB).asHex();
+        assertEquals(expected, actual);
+    }
 }
