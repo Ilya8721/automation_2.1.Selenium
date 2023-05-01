@@ -14,7 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.support.Color;
+
 
 public class DebitCardApplicationTest {
     WebDriver driver;
