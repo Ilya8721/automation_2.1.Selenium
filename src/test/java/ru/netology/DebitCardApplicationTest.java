@@ -21,13 +21,7 @@ public class DebitCardApplicationTest {
 
     @BeforeAll
     static void setupAll() {
-//        System.setProperty("webdriver.chrome.driver", "./driver/win/chromedriver.exe");
         WebDriverManager.chromedriver().setup();
-//        WebDriverManager.firefoxdriver().setup();
-//        WebDriverManager.edgedriver().setup();
-//        WebDriverManager.operadriver().setup();
-//        WebDriverManager.chromiumdriver().setup();
-//        WebDriverManager.iedriver().setup();
     }
 
     @BeforeEach
@@ -69,7 +63,7 @@ public class DebitCardApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.tagName("button")).click();
         String expected = "Имя и Фамилия указаные неверно. Допустимы только русские буквы, пробелы и дефисы.";
-        String actual = driver.findElements(By.className("input__sub")).get(0).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
     }
 
@@ -81,7 +75,7 @@ public class DebitCardApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.tagName("button")).click();
         String expected = "Поле обязательно для заполнения";
-        String actual = driver.findElements(By.className("input__sub")).get(0).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
     }
 
@@ -94,7 +88,7 @@ public class DebitCardApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.tagName("button")).click();
         String expected = "Поле обязательно для заполнения";
-        String actual = driver.findElements(By.className("input__sub")).get(0).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='name'].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
     }
 
@@ -106,7 +100,7 @@ public class DebitCardApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.tagName("button")).click();
         String expected = "Поле обязательно для заполнения";
-        String actual = driver.findElements(By.className("input__sub")).get(1).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
     }
 
@@ -119,7 +113,7 @@ public class DebitCardApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.tagName("button")).click();
         String expected = "Поле обязательно для заполнения";
-        String actual = driver.findElements(By.className("input__sub")).get(1).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
     }
 
@@ -133,7 +127,7 @@ public class DebitCardApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='agreement']")).click();
         driver.findElement(By.tagName("button")).click();
         String expected = "Телефон указан неверно. Должно быть 11 цифр, например, +79012345678.";
-        String actual = driver.findElements(By.className("input__sub")).get(1).getText().trim();
+        String actual = driver.findElement(By.cssSelector("[data-test-id='phone'].input_invalid .input__sub")).getText().trim();
         assertEquals(expected, actual);
     }
 
@@ -144,9 +138,8 @@ public class DebitCardApplicationTest {
         driver.findElement(By.cssSelector("[data-test-id='name'] input")).sendKeys("Вася Пупкин-Пупкин");
         driver.findElement(By.cssSelector("[data-test-id='phone'] input")).sendKeys("+79269999999");
         driver.findElement(By.tagName("button")).click();
-        String expected = "#ff5c5c";
-        String colorRGB = driver.findElement(By.className("checkbox__text")).getCssValue("color");
-        String actual = Color.fromString(colorRGB).asHex();
+        Boolean expected = true;
+        Boolean actual = driver.findElement(By.cssSelector("[data-test-id='agreement'].input_invalid")).isEnabled();
         assertEquals(expected, actual);
     }
 }
